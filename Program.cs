@@ -1,6 +1,5 @@
-﻿//using System.Threading.Channels;
-
-using System.Threading.Channels;
+using System;
+using System.Collections.Generic;
 
 namespace ASS_WEEK_2
 {
@@ -8,79 +7,71 @@ namespace ASS_WEEK_2
     {
         static void Main(string[] args)
         {
-            List<int> nums = new List<int>() {1,6,4,8,2,1,5};
+            List<int> nums = new List<int>() { 1, 6, 4, 8, 2, 1, 5 };
             char input;
 
             do
             {
+                Console.WriteLine("\n===== MENU =====");
+                Console.WriteLine("P - Print numbers ");
+                Console.WriteLine("A - Add a number");
+                Console.WriteLine("M - Display mean of the numbers");
+                Console.WriteLine("S - Display the smallest number");
+                Console.WriteLine("L - Display the largest number");
+                Console.WriteLine("C - Clear the list");
+                Console.WriteLine("I - Search for a number and get its index");
+                Console.WriteLine("R - Reverse the list");
+                Console.WriteLine("Q - Quit");
 
-            Console.WriteLine("P - Print numbers ");
-            Console.WriteLine("A - Add a number");
-            Console.WriteLine("M - Display mean of the numbers");
-            Console.WriteLine("S - Display the smallest number");
-            Console.WriteLine("L - Display the largest number");
-            Console.WriteLine("C - Clear the list");
-            Console.WriteLine("i - Search for a number and get it's index");
-            Console.WriteLine("Q - Quit");
+                Console.Write("\nEnter your choice: ");
+                input = Convert.ToChar(Console.ReadLine());
 
-            Console.WriteLine("enter your choice : ");
-
-            input = Convert.ToChar(Console.ReadLine());
-
-              switch(input)
+                switch (input)
                 {
-                    case 'p':
                     case 'P':
+                    case 'p':
                         if (nums.Count == 0)
                         {
-                            Console.WriteLine("[] - the list is empty");
+                            Console.WriteLine("[] - The list is empty.");
                         }
                         else
                         {
-                            Console.WriteLine("the list elements : \n");
+                            Console.WriteLine("The list elements:");
                             Console.WriteLine("[" + string.Join(", ", nums) + "]");
-
-                            //for (int i = 0; i <nums.Count; i++)
-                            //{
-                            //    Console.WriteLine(nums[i]);
-                            //}
                         }
-
                         break;
-//=============================================================================
-                    case 'a':
+
                     case 'A':
-                        Console.WriteLine("enter the number you want to add : ");
+                    case 'a':
+                        Console.Write("Enter the number you want to add: ");
                         int add_num = Convert.ToInt32(Console.ReadLine());
                         nums.Add(add_num);
-                        Console.WriteLine($"{add_num} is added ");
+                        Console.WriteLine($"{add_num} has been added.");
                         break;
-//=============================================================================
+//=============================================================================================
                     case 'M':
                     case 'm':
                         if (nums.Count == 0)
                         {
-                            Console.WriteLine("Unable to calculate the mean - no data");
+                            Console.WriteLine("Unable to calculate the mean - no data.");
                         }
                         else
                         {
                             int sum = 0;
-                            for (int i = 1; i <= nums.Count; i++)
+                            for (int i = 0; i < nums.Count; i++)  // <== fixed index start
                             {
                                 sum += nums[i];
                             }
-                            double average = sum / nums.Count;
-                            Console.WriteLine($"the average of the list is {average} ");
+                            double average = (double)sum / nums.Count;
+                            Console.WriteLine($"The average is: {average:F2}");
                         }
                         break;
-//=============================================================================
-
+//=============================================================================================
                     case 'S':
                     case 's':
-
                         if (nums.Count == 0)
                         {
-                            Console.WriteLine("Unable to determine the smallest number - list is empty");
+                            Console.WriteLine("Unable to determine the smallest number - list is empty.");
                         }
                         else
                         {
@@ -92,18 +83,15 @@ namespace ASS_WEEK_2
                                     smallest = nums[i];
                                 }
                             }
-                            Console.WriteLine($"the smallest number in the list is {smallest}");
+                            Console.WriteLine($"The smallest number is: {smallest}");
                         }
-
                         break;
-
-//=============================================================================
-
+//=============================================================================================
                     case 'L':
                     case 'l':
                         if (nums.Count == 0)
                         {
-                            Console.WriteLine("Unable to determine the smallest number - list is empty");
+                            Console.WriteLine("Unable to determine the largest number - list is empty.");
                         }
                         else
                         {
@@ -115,74 +103,75 @@ namespace ASS_WEEK_2
                                     largest = nums[i];
                                 }
                             }
-                            Console.WriteLine($"the largest number in the list is {largest} ");
+                            Console.WriteLine($"The largest number is: {largest}");
                         }
-
                         break;
-//=============================================================================
+//=============================================================================================
                     case 'C':
                     case 'c':
-                        if (nums.Count == 0)
-                        {
-                            Console.WriteLine("the list is already empty ");
-                        }
-                        else
-                        {
-                            nums.Clear();
-                            Console.WriteLine("the list is empty now ");
-                        }
+                        nums.Clear();
+                        Console.WriteLine("The list has been cleared.");
                         break;
-
-//=============================================================================
-
+//=============================================================================================
                     case 'I':
                     case 'i':
                         if (nums.Count == 0)
                         {
-                            Console.WriteLine("the list is empty ");
+                            Console.WriteLine("The list is empty.");
                         }
                         else
                         {
-                            Console.WriteLine("enter the number you want to find ");
+                            Console.Write("Enter the number you want to find: ");
                             int x = Convert.ToInt32(Console.ReadLine());
-
                             int check = 0;
-                            for(int i = 0; i < nums.Count; i++)
+                            for (int i = 0; i < nums.Count; i++)
                             {
-                                if (x == nums[i])
+                                if (nums[i] == x)
                                 {
                                     Console.WriteLine($"{x} is found at index {i}");
-                                    check += 1;
-                                }                     
+                                    check++;
+                                }
                             }
-                            if (check != 0)
+                            if (check > 0)
                             {
-                                Console.WriteLine($"the number is found in the list {check} times ");
-
+                                Console.WriteLine($"The number was found {check} time(s).");
                             }
                             else
                             {
-                                Console.WriteLine("the number is not found ");
+                                Console.WriteLine("The number was not found.");
                             }
-                                
                         }
                         break;
-//=============================================================================
+//=============================================================================================
+                    case 'R':
+                    case 'r':
+                        if (nums.Count == 0)
+                        {
+                            Console.WriteLine("The list is empty.");
+                        }
+                        else
+                        {
+                            List<int> reversed_list = new List<int>();
+                            for (int i = nums.Count - 1; i >= 0; i--)
+                            {
+                                reversed_list.Add(nums[i]);
+                            }
+                            Console.WriteLine("The reversed list:");
+                            Console.WriteLine("[" + string.Join(", ", reversed_list) + "]");
+                        }
+                        break;
+//=============================================================================================
                     case 'Q':
                     case 'q':
-                        Console.WriteLine("goodbye :)");
-
+                        Console.WriteLine("Goodbye :)");
                         break;
-//=============================================================================
-
+//=============================================================================================
                     default:
-                        Console.WriteLine("wrong input , try again ");
+                        Console.WriteLine("Invalid input, please try again.");
                         break;
-
-
                 }
-                
-            } while (input != 'q'&& input !='Q');
+
+            } while (input != 'Q' && input != 'q');
         }
     }
 }
